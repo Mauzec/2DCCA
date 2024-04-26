@@ -10,7 +10,7 @@ This is the implementation of the 2DCCA method.
 
 ## Introduction
 
-Detailed information about the 2DCCA method.
+<!-- Detailed information about the 2DCCA method. -->
 
 ## Installation
 
