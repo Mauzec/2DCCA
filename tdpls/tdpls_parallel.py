@@ -12,7 +12,7 @@ class TDPLSP(ClassifierAlgorithm):
         Parameters:
         - dimension (int): The dimension of the TDPLS_Cascade object. Default is 10.
         - distance_function (function): The distance function used to calculate the distance between two vectors. Default is Euclidean distance.
-        - is_max (bool): A flag indicating whether to maximize or minimize the objective function. Default is True (maximize).
+        - is_max (bool): A flag indicating whether to maximize or minimize during prediction. Default is True (maximize).
         '''
         
         self.U = None
@@ -34,15 +34,34 @@ class TDPLSP(ClassifierAlgorithm):
         assert isinstance(dimension, int), "Dimension must be an integer"
     
     def fit(self, X: list, Y: list, with_RRPP: bool = False) -> None:
+        """
+        Fits the 2DCCA model to the given data.
+
+        Args:
+            X (list): The input data for the first view.
+            Y (list): The input data for the second view.
+            with_RRPP (bool, optional): Whether to use the RRPP algorithm for calculating weights. Defaults to False.
+
+        Raises:
+            AssertionError: If the number of elements in X and Y is not equal.
+            AssertionError: If the number of elements in X is not greater than 0.
+            AssertionError: If the number of elements in Y is not greater than 0.
+            AssertionError: If the dimensions of the weight matrices are not equal.
+            AssertionError: If the number of elements in U is not equal to the number of elements in X.
+            AssertionError: If the number of elements in V is not equal to the number of elements in Y.
+
+        Returns:
+            None
+        """
         self.X_c = np.mean(X, axis=0)
         self.Y_c = np.mean(Y, axis=0)
-        
+
         X -= self.X_c
         Y -= self.Y_c    
         assert len(X) == len(Y), "The number of elements in X and Y must be equal"
         assert len(X) > 0, "The number of elements in X must be greater than 0"
         assert len(Y) > 0, "The number of elements in Y must be greater than 0"    
-        
+
         self._calculate_weights(X, Y, with_RRPP)
         assert self.W["x"][0].shape == self.W["y"][0].shape, "The dimensions of the matrices must be equal"
         assert self.W["x"][1].shape == self.W["y"][1].shape, "The dimensions of the matrices must be equal"

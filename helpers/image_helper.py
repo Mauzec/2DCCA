@@ -24,7 +24,7 @@ class ImageHelper:
             for directory in os.listdir(f"{dataset}/termal"):
                 if os.path.isfile(f"{dataset}/termal/{directory}/{num_test}.jpg"):
                     links_x.append(f"{dataset}/termal/{directory}/{num_test}.jpg")
-                    links_y.append(f"{dataset}/visible/{directory}/{num_test}.jpg")
+                    links_y.append(f"{dataset}/visible/{directory}/{num_test+1}.jpg")
         return links_x, links_y
     
     @staticmethod

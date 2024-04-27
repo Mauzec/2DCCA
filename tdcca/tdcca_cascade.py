@@ -3,6 +3,7 @@ import numpy as np
 from threading import Thread
 from abstract.classifier import ClassifierAlgorithm
 from queue import Queue
+import matplotlib.pyplot as plt
 
 class TDCCAC(ClassifierAlgorithm):
     def __init__(self, dimension: int = 10, distance_function = lambda x, y: np.linalg.norm(x - y), is_max: bool = True) -> None:
